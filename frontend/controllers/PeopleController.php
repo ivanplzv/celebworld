@@ -22,7 +22,14 @@ class PeopleController extends \yii\web\Controller
     }
     public function actionView($id)
     {
+
         $person = Celebrities::findOne($id);
+        $his = $person->gender == "Male" ? "his" : "her";
+        $this->getView()->title = $person->name." Net Worth";
+        \Yii::$app->view->registerMetaTag([
+            'name' => 'description',
+            'content' => 'During '. $his .' career, '.$person->name.' was able to make a lot of money. Now '. $his .' net worth is already greater than...'
+        ]);
 
         return $this->render('view',[
             'person' => $person,
